@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh '/usr/local/maven/bin/mvn -B -DskipTests clean package'
+                sh '/usr/local/maven/bin/mvn -B -DskipTests -Dcolor=false clean package'
             }
         }
         stage('Test') {
@@ -16,9 +16,9 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
+        stage('Run Application') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                sh 'java -jar "target/my-app-1.0-SNAPSHOT.jar"'
             }
         }
     }
